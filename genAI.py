@@ -3,6 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from enum import Enum
 
+
 class Topics(Enum):
     History = 'History'
     English = 'English'
@@ -10,6 +11,7 @@ class Topics(Enum):
     Spanish = 'Spanish'
     Business = 'Business'
     Economics = 'Economics'
+
 
 class QuizQuestion:
 
@@ -30,31 +32,35 @@ class QuizQuestion:
                 f"Answer: {self.answer}")
 
 
-
-
 class GenAI:
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        model_path = "ibm-granite/granite-3.0-2b-instruct"
+        model_path = "ibm-granite/granite-3.1-2b-instruct"
         # Load tokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
         # Load Model
         self.model = AutoModelForCausalLM.from_pretrained(model_path).to(self.device)
-        # Set the model to evaluation model
-        self.model.eval()
 
-    def generateQuestions(self, number: int, topic: Topics, ageGroup: str, item:str=None)->list:
+    def generateQuestions(self, number: int, topic: Topics, ageGroup: str, item: str = None) -> list:
         # change input text as desired
         if item is None:
             prompt = (f"Generate {number} multiple choice quiz question with 4 choices based on {topic.value},"
                       f" suitable for children at {ageGroup} years old "
                       f"and ensure there is only 1 correct answer, "
-                      f"include correct answer of multiple choice quiz question.")
+                      f"include correct answer of multiple choice quiz question."
+                      f"Only include the question, choices and answer and output and output in the format of question in the first line"
+                      f"choice A in the second line, choice B in the third line, choice C in the fourth line, choice D in the fifth line"
+                      f"Answer in the sixth line.")
         else:
-            prompt = (f"Generate {number} multiple choice quiz question around {item} with 4 choices based on {topic.value},"
-                      f" suitable for children at {ageGroup} years old "
-                      f"and ensure there is only 1 correct answer, "
-                      f"include correct answer of multiple choice quiz question.")
+            prompt = (
+                f"Generate {number} multiple choice quiz question around {item} with 4 choices based on {topic.value},"
+                f" suitable for children at {ageGroup} years old "
+                f"and ensure there is only 1 correct answer, "
+                f"include correct answer of multiple choice quiz question."
+                f"Only include the question, choices and answer and output and output in the format of question in the first line"
+                f"choice A in the second line, choice B in the third line, choice C in the fourth line, choice D in the fifth line"
+                f"Answer in the sixth line."
+                )
         chat = [
             {"role": "user", "content": prompt},
         ]
@@ -69,8 +75,8 @@ class GenAI:
 
         # decode output tokens into text
         output = self.tokenizer.batch_decode(output, skip_special_tokens=True)[0]
-        assistantIndex = output.index("assistant")
-        text = output[assistantIndex + 9:]
+        assistantIndex = output.index("\nassistant")
+        text = output[assistantIndex + 10:]
         textList = text.splitlines()
         textList = [text.strip() for text in textList if text != '']
         questions = []

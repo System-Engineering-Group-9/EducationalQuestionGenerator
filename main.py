@@ -1,10 +1,13 @@
 from genAI import GenAI, Topics
+from detection import Detection
 
 if __name__ == "__main__":
     # initialize generator
     genAi = GenAI()
+    detection = Detection()
+    item = detection.detect("statics/images/iphone.jpg")
     # generate questions
-    questions = genAi.generateQuestions(1, Topics.Business, "12-15","water bottle")
+    questions = genAi.generateQuestions(2, Topics.Business, "12-15",item)
     # write csv file
     csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
     file = open("statics/output.csv", "w")
