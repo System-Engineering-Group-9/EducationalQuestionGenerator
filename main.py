@@ -5,9 +5,9 @@ if __name__ == "__main__":
     # initialize generator
     genAi = GenAI()
     detection = Detection()
-    item = detection.detect("statics/images/iphone.jpg")
+    item = detection.cameraDetection()
     # generate questions
-    questions = genAi.generateQuestions(2, Topics.Business, "12-15",item)
+    questions = genAi.generateQuestions(3, Topics.Business, "12-15",item)
     # write csv file
     csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
     file = open("statics/output.csv", "w")

@@ -1,3 +1,4 @@
-torch
-transformers
-ultralytics
+torch~=2.5.1+cu124
+transformers~=4.46.3
+ultralytics~=8.3.58
+opencv-python~=4.10.0.84

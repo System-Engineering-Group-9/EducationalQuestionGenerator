@@ -1,9 +1,10 @@
 from ultralytics import YOLO
+import cv2
 
 class Detection:
     def __init__(self):
         # Load a model
-        self.model = YOLO("yolo11l.pt")
+        self.model = YOLO("yolo11x.pt")
 
     def detect(self, image):
         results = self.model(image)
@@ -21,8 +22,17 @@ class Detection:
         detection_results = sorted(detection_results, key=lambda x: x["score"], reverse=True)
         return detection_results[0]['label']
 
+    def cameraDetection(self):
+        cap = cv2.VideoCapture(0)  #using default camera
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                raise IOError("Cannot read video from camera")
+            # show picture
+            cv2.imshow("Frame", frame)
+            print("Recognized Object:",self.detect(frame))
+            # press 'y' for confirm
+            if cv2.waitKey(0) & 0xFF == ord('y'):
+                break
 
-if __name__ == '__main__':
-    detection = Detection()
-    results = detection.detect("statics/images/iphone.jpg")
-    print(results)
+        return self.detect(frame)

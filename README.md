@@ -18,7 +18,7 @@ The Generator make use of ibm-granite/granite-3.0-2b-instruct for generating que
     ```bash
     pip install -r requirements.txt
     ```
-
+   Make sure you are using CUDA 12.4 version, other versions may not work.
 
 ## Author
 
