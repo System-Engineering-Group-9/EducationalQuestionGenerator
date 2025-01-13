@@ -23,16 +23,23 @@ class Detection:
         return detection_results[0]['label']
 
     def cameraDetection(self):
-        cap = cv2.VideoCapture(0)  #using default camera
+        cap = cv2.VideoCapture(0)  # using default camera
+        print("Press Y for taking picture")
         while True:
             ret, frame = cap.read()
             if not ret:
                 raise IOError("Cannot read video from camera")
             # show picture
             cv2.imshow("Frame", frame)
-            print("Recognized Object:",self.detect(frame))
-            # press 'y' for confirm
-            if cv2.waitKey(0) & 0xFF == ord('y'):
+            if cv2.waitKey(1) & 0xFF == ord('y'):
                 break
+        cv2.imshow("Frame", frame)
+        result = self.detect(frame)
+        print("Recognized Object:", result)
+        print("Press Y for using the picture, any other key to retake the picture")
+        if cv2.waitKey(0) & 0xFF == ord('y'):
+            cap.release()
+            cv2.destroyAllWindows()
+            return result
+        return self.cameraDetection()
 
-        return self.detect(frame)

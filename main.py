@@ -7,7 +7,9 @@ if __name__ == "__main__":
     detection = Detection()
     item = detection.cameraDetection()
     # generate questions
-    questions = genAi.generateQuestions(3, Topics.Business, "12-15",item)
+    print("Generating questions......")
+    questions = genAi.generateQuestions(1, Topics.Business, "12-15",item)
+    print("Finished generating questions!")
     # write csv file
     csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
     file = open("statics/output.csv", "w")
