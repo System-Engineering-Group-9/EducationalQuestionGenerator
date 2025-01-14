@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Quiz Generator - API Overview</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        h2 {
+            margin-top: 2em;
+            color: #0073e6;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 1em;
+        }
+
+        .step {
+            background-color: #eef2f7;
+            border-left: 5px solid #0073e6;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Educational Quiz Generator - API Documentation</h1>
+        <a href="https://apifox.com/apidoc/shared-b62c7b34-acb7-48fa-b47f-988df3d7201f">Online Document</a>
+        <p>
+            Welcome to the API documentation for the <strong>Educational Quiz Generator</strong>. This system is designed to recognize objects in images using <strong>YOLO</strong> and generate quiz questions using <strong>ibm-granite/granite-3.1-2b-instruct</strong>.
+            Below is a detailed explanation of the available endpoints.
+        </p>
+
+        <h2>1. Recognition Endpoint (`/recognize/`)</h2>
+        <div class="step">
+            <p>
+                The <code>POST /recognize/</code> endpoint allows you to upload an image for object detection.
+                The system processes the image and returns a detected objects.
+            </p>
+            <p><strong>Request Type:</strong> <span style="color: green;">POST</span></p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><strong>file</strong> (required): The image file to be uploaded (supported formats: JPG, PNG).</li>
+            </ul>
+            <p><strong>Example Response:</strong></p>
+            <pre>
+{
+    "message": "success",
+    "data": "cell phone"
+}
+            </pre>
+        </div>
+
+        <h2>2. Quiz Generation Endpoint (`/generate/`)</h2>
+        <div class="step">
+            <p>
+                The <code>GET /generate/</code> endpoint generates quiz questions.
+                The system allows to create questions tailored to the detected objects.
+            </p>
+            <p><strong>Request Type:</strong> <span style="color: blue;">GET</span></p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><strong>topic</strong> (required): The topic of the quiz (e.g., "History", "English").</li>
+                <li><strong>number</strong> (required): The number of quiz questions to generate.</li>
+                <li><strong>ageGroup</strong> (required): The age group for which the quiz is intended (e.g., "12-15").</li>
+                <li><strong>item</strong> (optional): The item you want to generate quiz questions around</li>
+            </ul>
+            <p><strong>Example Response:</strong></p>
+            <pre>
+{
+    "message": "success",
+    "data": [
+        {
+            "question_text": "Question: Which of the following is NOT a way a business can generate revenue?",
+            "choiceA": "A) Selling products",
+            "choiceB": "B) Providing services",
+            "choiceC": "C) Donating to charity",
+            "choiceD": "D) Giving away free samples",
+            "answer": "Answer: C) Donating to charity"
+        }
+    ]
+}
+            </pre>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Jack Pan | Quiz Generator for IBM Project</p>
+        </div>
+    </div>
+</body>
+
+</html>

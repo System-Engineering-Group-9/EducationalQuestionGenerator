@@ -27,8 +27,11 @@ The Generator make use of ibm-granite/granite-3.1-2b-instruct for generating que
    ```bash
    python ./main.py
    ```
+2. **Start a Server**
 
-
+   ```bash
+   python ./server.py
+   ```
 
 ## Author
 
