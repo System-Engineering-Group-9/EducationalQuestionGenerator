@@ -3,6 +3,7 @@ from detection import Detection
 
 if __name__ == "__main__":
     # initialize generator
+    print("Loading models")
     genAi = GenAI()
     detection = Detection()
     item = detection.cameraDetection()
