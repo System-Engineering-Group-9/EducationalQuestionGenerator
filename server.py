@@ -3,6 +3,7 @@ import os
 import cv2
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from detection import Detection
 import numpy as np
 import uvicorn
@@ -17,6 +18,15 @@ genAi = GenAI()
 # Get the path of the html file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 HTML_FILE_PATH = os.path.join(BASE_DIR, "static/html/index.html")
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # document
 @app.get("/")
