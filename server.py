@@ -2,7 +2,7 @@ import os
 
 import cv2
 from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from detection import Detection
 import numpy as np
@@ -27,11 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# document
-@app.get("/")
-def document():
-    return FileResponse(HTML_FILE_PATH)
 
 
 # Recognition interface

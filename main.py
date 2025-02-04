@@ -13,7 +13,7 @@ if __name__ == "__main__":
     print("Finished generating questions!")
     # write csv file
     csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
-    file = open("statics/output.csv", "w")
+    file = open("static/output.csv", "w")
     file.write(",".join(csvHeader)+'\n')
     for question in questions:
         file.write(",".join(question.__dict__.values())+'\n')
