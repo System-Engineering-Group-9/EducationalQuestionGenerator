@@ -1,5 +1,5 @@
-from genAI import GenAI, Topics
-from detection import Detection
+from ai.genAI import GenAI, Topics
+from ai.detection import Detection
 
 if __name__ == "__main__":
     # initialize generator

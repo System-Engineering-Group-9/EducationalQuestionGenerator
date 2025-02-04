@@ -4,7 +4,7 @@ import cv2
 class Detection:
     def __init__(self):
         # Load a model
-        self.model = YOLO("yolo11x.pt")
+        self.model = YOLO("../yolo11x.pt")
 
     def detect(self, image):
         results = self.model(image)

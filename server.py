@@ -1,14 +1,16 @@
 import os
+from typing import List
 
 import cv2
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from detection import Detection
+from ai.detection import Detection
 import numpy as np
 import uvicorn
 
-from genAI import GenAI, Topics
+from ai.genAI import GenAI, Topics
+from models.question import Question
 
 # Initialize the server
 app = FastAPI()
@@ -51,6 +53,31 @@ def generate(topic: Topics, number:int, ageGroup:str, item:str=None):
         "message": f"success",
         "data": questions
     })
+
+
+# Confirm Questions by CSV file
+@app.post("/confirm-by-csv/")
+def confirm_by_csv(file: UploadFile = File(...)):
+    if not file.content_type.startswith("text/csv"):
+        return JSONResponse(content={"message": "Unsupported Media Type", "data":None}, status_code=400)
+    # save the file
+    with open("static/output.csv", "wb") as f:
+        f.write(file.file.read())
+    return JSONResponse(content={"message": "success", "data":None})
+
+
+# Confirm Questions by JSON
+@app.post("/confirm-by-json/")
+def confirm_by_json(data: List[Question]):
+    # turn the data into a csv file
+    csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
+    file = open("static/output.csv", "w")
+    file.write(",".join(csvHeader)+'\n')
+    for question in data:
+        file.write(",".join(question.__dict__.values())+'\n')
+    file.close()
+    return JSONResponse(content={"message": "success", "data":None})
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=9000)
