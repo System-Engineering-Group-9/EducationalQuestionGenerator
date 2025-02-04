@@ -3,8 +3,9 @@ from typing import List
 
 import cv2
 from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+
 from ai.detection import Detection
 import numpy as np
 import uvicorn
@@ -77,6 +78,16 @@ def confirm_by_json(data: List[Question]):
         file.write(",".join(question.__dict__.values())+'\n')
     file.close()
     return JSONResponse(content={"message": "success", "data":None})
+
+# Get Questions CSV file
+@app.get("/get-questions/")
+def get_questions():
+    # check if the file exists
+    if not os.path.exists("static/output.csv"):
+        return JSONResponse(content={"message": "No questions set", "data":None}, status_code=404)
+    return FileResponse("static/output.csv")
+
+
 
 
 if __name__ == "__main__":
