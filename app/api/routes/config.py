@@ -21,7 +21,7 @@ def confirm_by_csv(file: UploadFile = File(...)):
 @router.post("/confirm-by-json/")
 def confirm_by_json(data: QuestionsModel):
     # turn the data into a csv file
-    csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']
+    csvHeader = ['question', 'choiceA', 'choiceB', 'choiceC', 'choiceD', 'answer']
     file = open("static/output.csv", "w")
     file.write(",".join(csvHeader)+'\n')
     for question in data.questions:
@@ -34,4 +34,4 @@ def get_questions():
     # check if the file exists
     if not os.path.exists("static/output.csv"):
         return JSONResponse(content={"message": "No questions set", "data":None}, status_code=404)
-    return FileResponse("static/output.csv")
+    return FileResponse("static/output.csv", media_type="text/csv", filename="QuizQuestions.csv")
