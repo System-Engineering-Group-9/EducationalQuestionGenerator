@@ -1,15 +1,12 @@
-from ai.genAI import GenAI, Topics
-from ai.detection import Detection
+from app.ai.genAI import GenAI, Topics
 
 if __name__ == "__main__":
     # initialize generator
     print("Loading models")
     genAi = GenAI()
-    detection = Detection()
-    item = detection.cameraDetection()
     # generate questions
     print("Generating questions......")
-    questions = genAi.generateQuestions(1, Topics.Business, "12-15",item)
+    questions = genAi.generateQuestions(1, Topics.Business, "12-15",None)
     print("Finished generating questions!")
     # write csv file
     csvHeader = ['question', 'choice A', 'choice B', 'choice C', 'choice D', 'answer']

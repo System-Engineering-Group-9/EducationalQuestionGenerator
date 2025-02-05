@@ -6,3 +6,4 @@ fastapi[standard]~=0.115.6
 numpy~=2.2.2
 uvicorn~=0.34.0
 pydantic~=2.10.5
+pydantic-settings~=2.7.1

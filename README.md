@@ -30,7 +30,7 @@ The Generator make use of ibm-granite/granite-3.1-2b-instruct for generating que
 2. **Start a Server**
 
    ```bash
-   python ./server.py
+   fastapi run app/main.py
    ```
 
 ## Author
