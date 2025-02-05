@@ -1,7 +1,11 @@
+# app/models/generateModel.py
 from pydantic import BaseModel
 from app.ai.genAI import Topics
 
 class GenerateModel(BaseModel):
+    """
+    Model for the parameters of the generate endpoint
+    """
     topic: Topics
     number: int
     ageGroup: str
