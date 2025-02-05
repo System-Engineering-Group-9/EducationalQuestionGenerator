@@ -1,7 +1,7 @@
 /statics
 /.idea
 
-yolo11x.pt
+app/yolo11x.pt
 
 ### macOS template
 # General
