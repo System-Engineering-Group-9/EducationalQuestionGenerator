@@ -33,23 +33,6 @@ This directory contains the AI server for the Educational Quiz Question Generato
   - **Status Code:** `200 OK`
   - **Body:** JSON object containing the generated questions.
 
-## Installation
-
-1. **Clone the project**
-   ```bash
-   git clone https://github.com/dcloud347/EducationalQuestionGenerator.git
-   ```
-
-2. **Navigate to the app directory**
-   ```bash
-   cd EducationalQuestionGenerator/app
-   ```
-
-3. **Install pip dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
 ## Running the Server
 
 1. **Start the FastAPI server**
