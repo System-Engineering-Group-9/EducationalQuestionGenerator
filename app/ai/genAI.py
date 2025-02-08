@@ -1,7 +1,7 @@
+from enum import Enum
+
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
-from enum import Enum
 
 
 class Topics(Enum):
@@ -101,7 +101,6 @@ class GenAI:
         textList = text.splitlines()
         textList = [text.strip() for text in textList if text != '']
         questions = []
-        print(textList)
         for index in range(0, len(textList), 6):
             questionText = extract_after_colon(textList[index])
             choiceA = extract_after_colon(textList[index + 1])

@@ -1,7 +1,8 @@
 import os
 
-from ultralytics import YOLO
 import cv2
+from ultralytics import YOLO
+
 
 class Detection:
     def __init__(self):
@@ -10,7 +11,7 @@ class Detection:
         # Load a model
         self.model = YOLO(path + "/../yolo11x.pt")
 
-    def detect(self, image):
+    def detect(self, image) -> list:
         results = self.model(image)
         detection_results = []
         for result in results:
@@ -24,7 +25,7 @@ class Detection:
                     "score": score.item()
                 })
         detection_results = sorted(detection_results, key=lambda x: x["score"], reverse=True)
-        return detection_results[0]['label']
+        return detection_results
 
     def cameraDetection(self):
         cap = cv2.VideoCapture(0)  # using default camera

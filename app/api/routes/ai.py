@@ -4,11 +4,11 @@ import numpy as np
 from fastapi import APIRouter, UploadFile, File, Depends
 from fastapi.responses import JSONResponse
 
-from app.ai.genAI import GenAI
 from app.ai.detection import Detection
+from app.ai.genAI import GenAI
 from app.models.generateModel import GenerateModel
 from app.models.questionModel import QuestionsModel
-from app.models.recognitionModel import RecognitionModel
+from app.models.recognitionModel import RecognitionsModel
 from app.models.resultModel import ResultModel
 
 router = APIRouter(prefix="/ai", tags=["ai"])
@@ -30,7 +30,7 @@ def recognize(file: UploadFile = File(...)):
     bgr_image = cv2.imdecode(np_image, cv2.IMREAD_COLOR)
 
     # Detect items in the image
-    return ResultModel(message="success", data=RecognitionModel(item=detection.detect(bgr_image)))
+    return ResultModel(message="success", data=RecognitionsModel(items=detection.detect(bgr_image)))
 
 
 # Generate questions
