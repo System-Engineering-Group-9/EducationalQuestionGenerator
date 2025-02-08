@@ -1,10 +1,14 @@
+import os
+
 from ultralytics import YOLO
 import cv2
 
 class Detection:
     def __init__(self):
+        # Get path of the root directory
+        path = os.path.dirname(os.path.abspath(__file__))
         # Load a model
-        self.model = YOLO("app/yolo11x.pt")
+        self.model = YOLO(path + "/../yolo11x.pt")
 
     def detect(self, image):
         results = self.model(image)
