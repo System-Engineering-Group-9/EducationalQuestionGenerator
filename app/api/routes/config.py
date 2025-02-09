@@ -1,9 +1,10 @@
 import os
-from app.models.resultModel import ResultModel
+
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse, FileResponse
 
 from app.models.questionModel import QuestionsModel
+from app.models.resultModel import ResultModel
 
 router = APIRouter(prefix="/config", tags=["config"])
 
@@ -27,6 +28,17 @@ def confirm_by_json(data: QuestionsModel):
     for question in data.questions:
         file.write(",".join(question.__dict__.values())+'\n')
     file.close()
+    return ResultModel(message="success", data=None)
+
+
+# Set Background Image
+@router.post("/confirm-background/", response_model=ResultModel)
+def confirm_background(file: UploadFile = File(...)):
+    if not file.content_type.startswith("image/"):
+        return JSONResponse(content={"message": "Unsupported Media Type", "data": None}, status_code=400)
+    # save the file
+    with open("static/background.png", "wb") as f:
+        f.write(file.file.read())
     return ResultModel(message="success", data=None)
 
 @router.get("/get-questions/")
