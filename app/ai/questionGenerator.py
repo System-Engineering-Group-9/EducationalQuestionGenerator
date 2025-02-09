@@ -35,7 +35,7 @@ class QuizQuestion:
                 f"Answer: {self.answer}")
 
 
-class GenAI:
+class QuestionGenerator:
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         model_path = "ibm-granite/granite-3.1-2b-instruct"

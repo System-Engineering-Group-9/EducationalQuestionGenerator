@@ -1,5 +1,5 @@
 # main.py
-from app.ai.genAI import GenAI, Topics
+from app.ai.questionGenerator import GenAI, Topics
 
 if __name__ == "__main__":
     # Initialize the question generator

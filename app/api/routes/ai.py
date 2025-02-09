@@ -5,7 +5,7 @@ from fastapi import APIRouter, UploadFile, File, Depends
 from fastapi.responses import JSONResponse
 
 from app.ai.detection import Detection
-from app.ai.genAI import GenAI
+from app.ai.questionGenerator import QuestionGenerator
 from app.models.generateModel import GenerateModel
 from app.models.questionModel import QuestionsModel
 from app.models.recognitionModel import RecognitionsModel
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 
 # Initialize the AI models
 detection = Detection()
-genAi = GenAI()
+questionGenerator = QuestionGenerator()
 
 
 # Recognize the image
@@ -37,7 +37,7 @@ def recognize(file: UploadFile = File(...)):
 @router.get("/generate/", response_model=ResultModel)
 def generate(params: GenerateModel = Depends()):
     # Generate questions based on the provided parameters
-    questions = genAi.generateQuestions(params.number, params.topic, params.ageGroup, params.item)
+    questions = questionGenerator.generateQuestions(params.number, params.topic, params.ageGroup, params.item)
     questions = [question.__dict__ for question in questions]
 
     # Return the generated questions

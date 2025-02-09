@@ -1,6 +1,8 @@
 # app/models/generateModel.py
 from pydantic import BaseModel
-from app.ai.genAI import Topics
+
+from app.ai.questionGenerator import Topics
+
 
 class GenerateModel(BaseModel):
     """
