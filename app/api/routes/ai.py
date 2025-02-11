@@ -72,12 +72,9 @@ def generate(params: GenerateModel = Depends()):
 
 # Generate image
 @router.get("/generate-image/")
-def generate(params: DreamShaperModel = Depends()):
-    if params.prompt is None or params.prompt == "":
-        return JSONResponse(content={"message": "Prompt is required", "data": None}, status_code=400)
-
+def generate_image(params: DreamShaperModel = Depends()):
     dream_shaper = get_dream_shaper()
-    image = dream_shaper.generate_image(params.prompt)
+    image = dream_shaper.generate_image(params.topic, params.ageGroup)
 
     # Save the image to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:

@@ -1,8 +1,11 @@
 from pydantic import BaseModel
 
+from app.ai.enums.topic import Topic
+
 
 class DreamShaperModel(BaseModel):
     """
     Model for the parameters of the dreamShaper endpoint
     """
-    prompt: str
+    topic: Topic
+    ageGroup: str

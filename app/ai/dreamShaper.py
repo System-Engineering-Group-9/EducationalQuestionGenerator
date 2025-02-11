@@ -1,6 +1,8 @@
 import torch
 from diffusers import AutoPipelineForText2Image, DEISMultistepScheduler
 
+from app.ai.enums.topic import Topic
+
 
 class DreamShaper:
     def __init__(self):
@@ -11,5 +13,7 @@ class DreamShaper:
         self.pipe = pipe
         self.generator = torch.manual_seed(20)
 
-    def generate_image(self, prompt: str):
+    def generate_image(self, topic: Topic, ageGroup: str):
+        prompt = (f"Generate an background image for an educational game with a topic of {topic.value},"
+                  f" suitable for children at {ageGroup} years old, highlight the main theme of the topic.")
         return self.pipe(prompt, generator=self.generator, num_inference_steps=25).images[0]

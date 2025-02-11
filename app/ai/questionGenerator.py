@@ -1,16 +1,8 @@
-from enum import Enum
-
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from app.ai.enums.topic import Topic
 
-class Topics(Enum):
-    History = 'History'
-    English = 'English'
-    French = 'French'
-    Spanish = 'Spanish'
-    Business = 'Business'
-    Economics = 'Economics'
 
 def extract_after_colon(text):
     return text.split(':', 1)[1].strip()
@@ -44,7 +36,7 @@ class QuestionGenerator:
         # Load Model
         self.model = AutoModelForCausalLM.from_pretrained(model_path).to(self.device)
 
-    def generateQuestions(self, number: int, topic: Topics, ageGroup: str, item: str = None) -> list:
+    def generateQuestions(self, number: int, topic: Topic, ageGroup: str, item: str = None) -> list:
         if item is None:
             prompt = (f"Generate {number} multiple choice quiz questions with 4 choices based on {topic.value},"
                       f" suitable for children at {ageGroup} years old "
