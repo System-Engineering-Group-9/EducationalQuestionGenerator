@@ -47,3 +47,11 @@ def get_questions():
     if not os.path.exists("static/output.csv"):
         return JSONResponse(content={"message": "No questions set", "data":None}, status_code=404)
     return FileResponse("static/output.csv", media_type="text/csv", filename="QuizQuestions.csv")
+
+
+@router.get("/get-background-image/")
+def get_background_image():
+    # check if the file exists
+    if not os.path.exists("static/background.png"):
+        return JSONResponse(content={"message": "No background image set", "data": None}, status_code=404)
+    return FileResponse("static/background.png", media_type="image/png", filename="background.png")
