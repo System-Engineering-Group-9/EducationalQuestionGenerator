@@ -15,7 +15,7 @@ router = APIRouter(prefix="/config", tags=["config"])
 def confirm_by_json(data: QuestionsModel):
     # turn the data into a json file
     file = open("static/output.json", "w")
-    file.write(json.dumps(data, indent=4))
+    file.write(json.dumps([question.__dict__ for question in data.questions], indent=4))
     file.close()
     return ResultModel(message="success", data=None)
 
