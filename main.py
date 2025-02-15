@@ -1,4 +1,6 @@
 # main.py
+import json
+
 from app.ai.enums.topic import Topic
 from app.ai.questionGenerator import QuestionGenerator
 
@@ -32,12 +34,9 @@ def main():
     questions = genAi.generateQuestions(number, topic, ageGroup, None)
     print("Finished generating questions!")
 
-    # Write questions to a CSV file
-    csvHeader = ['question', 'choiceA', 'choiceB', 'choiceC', 'choiceD', 'answer']
-    file = open("output.csv", "w")
-    file.write(",".join(csvHeader) + '\n')
-    for question in questions:
-        file.write(",".join(question.__dict__.values()) + '\n')
+    # Write questions to a Json file
+    file = open("output.json", "w")
+    file.write(json.dumps([question.__dict__ for question in questions], indent=4))
     file.close()
 
 

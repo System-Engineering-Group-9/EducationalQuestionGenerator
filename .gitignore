@@ -277,4 +277,4 @@ cython_debug/
 static
 main.spec
 __pycache__
-output.csv
+output.json

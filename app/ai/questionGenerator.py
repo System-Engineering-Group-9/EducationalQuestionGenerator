@@ -10,8 +10,8 @@ def extract_after_colon(text):
 
 class QuizQuestion:
 
-    def __init__(self, question_text, choiceA, choiceB, choiceC, choiceD, answer):
-        self.question_text = question_text
+    def __init__(self, question, choiceA, choiceB, choiceC, choiceD, answer):
+        self.question = question
         self.choiceA = choiceA
         self.choiceB = choiceB
         self.choiceC = choiceC
@@ -19,7 +19,7 @@ class QuizQuestion:
         self.answer = answer
 
     def __str__(self):
-        return (f"Question:{self.question_text}"
+        return (f"Question:{self.question}"
                 f"ChoiceA: {self.choiceA}"
                 f"ChoiceB: {self.choiceB}"
                 f"ChoiceC: {self.choiceC}"
@@ -94,11 +94,11 @@ class QuestionGenerator:
         textList = [text.strip() for text in textList if text != '']
         questions = []
         for index in range(0, len(textList), 6):
-            questionText = extract_after_colon(textList[index])
+            question = extract_after_colon(textList[index])
             choiceA = extract_after_colon(textList[index + 1])
             choiceB = extract_after_colon(textList[index + 2])
             choiceC = extract_after_colon(textList[index + 3])
             choiceD = extract_after_colon(textList[index + 4])
             answer = extract_after_colon(textList[index + 5])
-            questions.append(QuizQuestion(questionText, choiceA, choiceB, choiceC, choiceD, answer))
+            questions.append(QuizQuestion(question, choiceA, choiceB, choiceC, choiceD, answer))
         return questions
