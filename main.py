@@ -27,11 +27,13 @@ def main():
         except ValueError:
             print("Invalid input. Please enter a valid topic.")
 
+    item = input("Enter the item: ")
+
     ageGroup = input("Enter the age group: ")
 
     # Generate questions
     print("Generating questions......")
-    questions = genAi.generateQuestions(number, topic, ageGroup, None)
+    questions = genAi.generateQuestions(number, topic, ageGroup, item)
     print("Finished generating questions!")
 
     # Write questions to a Json file

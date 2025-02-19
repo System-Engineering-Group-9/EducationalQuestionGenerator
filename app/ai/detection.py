@@ -8,7 +8,7 @@ class Detection:
         # Get path of the root directory
         path = os.path.dirname(os.path.abspath(__file__))
         # Load a model
-        self.model = YOLO(path + "/models/yolo11x.pt")
+        self.model = YOLO(path + "/models/detection/yolo11x.pt")
 
     def detect(self, image) -> list:
         results = self.model(image)

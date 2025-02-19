@@ -14,6 +14,8 @@ class DreamShaper:
         self.generator = torch.manual_seed(20)
 
     def generate_image(self, topic: Topic, ageGroup: str):
+        # TODO Use specific prompt for each topic
         prompt = (f"Generate an background image with a topic of {topic.value},"
-                  f" suitable for children at {ageGroup} years old, highlight the main theme of the topic.")
+                  f" suitable for children at {ageGroup} years old,"
+                  f" highlight the main theme of the topic.")
         return self.pipe(prompt, generator=self.generator, num_inference_steps=25).images[0]

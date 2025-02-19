@@ -1,7 +1,7 @@
 /statics
 /.idea
 
-app/ai/models/yolo11x.pt
+app/ai/models/detection/yolo11x.pt
 
 ### macOS template
 # General
