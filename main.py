@@ -14,10 +14,13 @@ def main():
     # Input the number of questions to generate, the topic, the age group
     while True:
         try:
-            number = int(input("Enter the number of questions to generate: "))
-            break
+            number = int(input("Enter the number of questions to generate(between 1 and 5): "))
+            if 1 <= number <= 5:
+                break
+            else:
+                print("Invalid input. Please enter a number between 1 and 5.")
         except ValueError:
-            print("Invalid input. Please enter a valid integer.")
+            print("Invalid input. Please enter a number between 1 and 5.")
 
     while True:
         try:

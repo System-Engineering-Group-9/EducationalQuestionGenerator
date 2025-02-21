@@ -86,7 +86,9 @@ class QuestionGenerator:
             {"role": "user", "content": prompt},
         ]
         response = self.llm.create_chat_completion(
-            messages=chat
+            messages=chat,
+            max_tokens=number * 200 + 200,
+            temperature=0.85,
         )
         output = response['choices'][0]['message']['content']
         textList = output.splitlines()
