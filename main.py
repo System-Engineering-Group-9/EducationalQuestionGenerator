@@ -1,7 +1,7 @@
 # main.py
 import json
 
-from app.ai.enums.topic import Topic
+from app.ai.enums.subject import Subject
 from app.ai.questionGenerator import QuestionGenerator
 
 
@@ -11,7 +11,7 @@ def main():
     genAi = QuestionGenerator()
     print("Models loaded")
 
-    # Input the number of questions to generate, the topic, the age group
+    # Input the number of questions to generate, the subject, the age group
     while True:
         try:
             number = int(input("Enter the number of questions to generate(between 1 and 5): "))
@@ -24,11 +24,12 @@ def main():
 
     while True:
         try:
-            topic = Topic(
-                input("Enter the topic (Available Topics: History, English, French, Spanish, Business, Economics): "))
+            subject = Subject(
+                input(
+                    "Enter the subject (Available Subjects: History, English, French, Spanish, Business, Economics): "))
             break
         except ValueError:
-            print("Invalid input. Please enter a valid topic.")
+            print("Invalid input. Please enter a valid subject.")
 
     item = input("Enter the item: ")
 
@@ -36,7 +37,7 @@ def main():
 
     # Generate questions
     print("Generating questions......")
-    questions = genAi.generateQuestions(number, topic, ageGroup, item)
+    questions = genAi.generateQuestions(number, subject, ageGroup, item)
     print("Finished generating questions!")
 
     # Write questions to a Json file

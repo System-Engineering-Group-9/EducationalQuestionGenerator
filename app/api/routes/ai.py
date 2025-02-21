@@ -63,7 +63,7 @@ def recognize(file: UploadFile = File(...)):
 def generate(params: GenerateModel = Depends()):
     # Generate questions based on the provided parameters
     question_generator = get_question_generator()
-    questions = question_generator.generateQuestions(params.number, params.topic, params.ageGroup, params.item)
+    questions = question_generator.generateQuestions(params.number, params.subject, params.ageGroup, params.item)
     questions = [question.__dict__ for question in questions]
 
     # Return the generated questions
@@ -74,7 +74,7 @@ def generate(params: GenerateModel = Depends()):
 @router.get("/generate-image/")
 def generate_image(params: DreamShaperModel = Depends()):
     dream_shaper = get_dream_shaper()
-    image = dream_shaper.generate_image(params.topic, params.ageGroup)
+    image = dream_shaper.generate_image(params.subject, params.ageGroup)
 
     # Save the image to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:

@@ -1,14 +1,14 @@
 # app/models/generateModel.py
 from pydantic import BaseModel, validator
 
-from app.ai.enums.topic import Topic
+from app.ai.enums.subject import Subject
 
 
 class GenerateModel(BaseModel):
     """
     Model for the parameters of the generate endpoint
     """
-    topic: Topic
+    subject: Subject
     number: int
     ageGroup: str
     item: str = None

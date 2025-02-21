@@ -1,6 +1,6 @@
 from llama_cpp import Llama
 
-from app.ai.enums.topic import Topic
+from app.ai.enums.subject import Subject
 
 
 def extract_after_colon(text):
@@ -26,9 +26,9 @@ class QuizQuestion:
                 f"Answer: {self.answer}")
 
 
-def get_prompt(number: int, topic: Topic, ageGroup: str, item: str = None) -> str:
+def get_prompt(number: int, subject: Subject, ageGroup: str, item: str = None) -> str:
     if item is None:
-        prompt = (f"Generate {number} multiple choice quiz questions with 4 choices based on {topic.value},"
+        prompt = (f"Generate {number} multiple choice quiz questions with 4 choices based on {subject.value},"
                   f" suitable for children at {ageGroup} years old "
                   f"and ensure there is only 1 correct answer, "
                   f"include correct answer of multiple choice quiz question."
@@ -50,7 +50,7 @@ def get_prompt(number: int, topic: Topic, ageGroup: str, item: str = None) -> st
                   )
     else:
         prompt = (
-            f"Generate {number} multiple choice quiz questions around {item} with 4 choices based on {topic.value},"
+            f"Generate {number} multiple choice quiz questions around {item} with 4 choices based on {subject.value},"
             f" suitable for children at {ageGroup} years old "
             f"and ensure there is only 1 correct answer, "
             f"include correct answer of multiple choice quiz question."
@@ -80,8 +80,8 @@ class QuestionGenerator:
             filename="granite-3.0-8b-instruct.Q4_K_S.gguf",
         )
 
-    def generateQuestions(self, number: int, topic: Topic, ageGroup: str, item: str = None) -> list:
-        prompt = get_prompt(number, topic, ageGroup, item)
+    def generateQuestions(self, number: int, subject: Subject, ageGroup: str, item: str = None) -> list:
+        prompt = get_prompt(number, subject, ageGroup, item)
         chat = [
             {"role": "user", "content": prompt},
         ]

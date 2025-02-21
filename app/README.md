@@ -25,7 +25,7 @@ This directory contains the AI server for the Educational Quiz Question Generato
 - **Description:** Generates quiz questions based on provided parameters.
 - **Request:**
   - **Parameters:**
-    - `topic` (string): The topic for the questions.
+    - `subject` (string): The subject for the questions.
     - `number` (int): The number of questions to generate.
     - `ageGroup` (string): The age group for the questions.
     - `item` (string, optional): Specific item to generate questions about.

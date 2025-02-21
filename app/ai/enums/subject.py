@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Topic(Enum):
+class Subject(Enum):
     History = 'History'
     English = 'English'
     French = 'French'
