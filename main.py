@@ -33,7 +33,6 @@ def generate_questions():
     root.update_idletasks()
 
     try:
-        genAi = QuestionGenerator()
         questions = genAi.generateQuestions(number, subject, age_group, item if item else None)
         result_text.set("Finished generating questions!")
     except Exception as e:
@@ -48,6 +47,9 @@ def generate_questions():
 
 
 if __name__ == "__main__":
+    # Initialize the Question Generator
+    genAi = QuestionGenerator()
+
     # Create main window
     root = tk.Tk()
     root.title("Quiz Question Generator")
