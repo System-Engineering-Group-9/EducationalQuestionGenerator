@@ -42,6 +42,26 @@ def get_background_image():
     return FileResponse("static/background.png", media_type="image/png", filename="background.png")
 
 
+# Confirm quiz panel background image
+@router.post("/confirm-quiz-background/", response_model=ResultModel)
+def confirm_quiz_background(file: UploadFile = File(...)):
+    if not file.content_type.startswith("image/"):
+        return JSONResponse(content={"message": "Unsupported Media Type", "data": None}, status_code=400)
+    # save the file
+    with open("static/quizBackground.png", "wb") as f:
+        f.write(file.file.read())
+    return ResultModel(message="success", data=None)
+
+
+# Get quiz panel background image
+@router.get("/get-quiz-background-image/")
+def get_background_image():
+    # check if the file exists
+    if not os.path.exists("static/quizBackground.png"):
+        return JSONResponse(content={"message": "No quiz background image set", "data": None}, status_code=404)
+    return FileResponse("static/quizBackground.png", media_type="image/png", filename="quizBackground.png")
+
+
 @router.post("/set-config/")
 def set_config(data: ConfigModel):
     cache["config"] = data
