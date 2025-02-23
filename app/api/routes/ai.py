@@ -71,10 +71,10 @@ def generate(params: GenerateModel = Depends()):
 
 
 # Generate image
-@router.get("/generate-image/")
-def generate_image(params: DreamShaperModel = Depends()):
+@router.get("/generate-background-image/")
+def generate_background_image(params: DreamShaperModel = Depends()):
     dream_shaper = get_dream_shaper()
-    image = dream_shaper.generate_image(params.subject, params.ageGroup)
+    image = dream_shaper.generate_background_image(params.subject, params.ageGroup)
 
     # Save the image to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
@@ -83,4 +83,19 @@ def generate_image(params: DreamShaperModel = Depends()):
             return JSONResponse(content={"message": "Failed to save image", "data": None}, status_code=500)
         tmp_file_path = tmp_file.name
 
-    return FileResponse(tmp_file_path, media_type="image/png", filename="generated_image.png")
+    return FileResponse(tmp_file_path, media_type="image/png", filename="generated_background_image.png")
+
+
+@router.get("/generate-quiz-background-image/")
+def generate_background_image(params: DreamShaperModel = Depends()):
+    dream_shaper = get_dream_shaper()
+    image = dream_shaper.generate_quiz_panel_background_image(params.subject, params.ageGroup)
+
+    # Save the image to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
+        success = cv2.imwrite(tmp_file.name, np.array(image))
+        if not success:
+            return JSONResponse(content={"message": "Failed to save image", "data": None}, status_code=500)
+        tmp_file_path = tmp_file.name
+
+    return FileResponse(tmp_file_path, media_type="image/png", filename="generated_quiz_background_image.png")
