@@ -43,8 +43,8 @@ class DreamShaper:
         self.generator = torch.manual_seed(20)
 
     def generate_background_image(self, subject: Subject, ageGroup: str):
-        return \
-        self.pipe(get_background_prompt(subject, ageGroup), generator=self.generator, num_inference_steps=25).images[0]
+        return self.pipe(get_background_prompt(subject, ageGroup), generator=self.generator,
+                         num_inference_steps=20).images[0]
 
     def generate_quiz_panel_background_image(self, subject: Subject, ageGroup: str):
         return self.pipe(get_quiz_panel_background_prompt(subject, ageGroup), generator=self.generator,
