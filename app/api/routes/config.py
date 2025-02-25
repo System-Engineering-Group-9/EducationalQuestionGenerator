@@ -20,7 +20,10 @@ def confirm_by_json(data: QuestionsModel):
 
 @router.get("/get-questions/", response_model=QuestionsModel)
 def get_questions():
-    return QuestionsModel(questions=cache.get("questions", []))
+    questions = cache.get("questions", [])
+    if not questions:
+        return JSONResponse(content={"message": "No questions set", "data": None}, status_code=404)
+    return QuestionsModel(questions=questions)
 
 
 # Set Background Image
