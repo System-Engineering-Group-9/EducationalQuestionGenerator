@@ -38,7 +38,8 @@ class DreamShaper:
         pipe = AutoPipelineForText2Image.from_pretrained('lykon/dreamshaper-8', torch_dtype=torch.float16,
                                                          variant="fp16")
         pipe.scheduler = DEISMultistepScheduler.from_config(pipe.scheduler.config)
-        pipe = pipe.to("cuda")
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        pipe = pipe.to(self.device)
         self.pipe = pipe
         self.generator = torch.manual_seed(20)
 
