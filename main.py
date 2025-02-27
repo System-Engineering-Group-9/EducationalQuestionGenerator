@@ -21,7 +21,7 @@ def generate_questions():
         messagebox.showerror("Error", "Please enter a valid subject.")
         return
 
-    item = item_entry.get().strip()
+    topic = topic_entry.get().strip()
     age_group = age_group_entry.get()
 
     if not age_group:
@@ -33,7 +33,7 @@ def generate_questions():
     root.update_idletasks()
 
     try:
-        questions = genAi.generateQuestions(number, subject, age_group, item if item else None)
+        questions = genAi.generateQuestions(number, subject, age_group, topic if topic else None)
         result_text.set("Finished generating questions!")
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred: {e}")
@@ -74,10 +74,10 @@ if __name__ == "__main__":
     subject_menu = ttk.Combobox(root, textvariable=subject_var, values=[s.name for s in Subject])
     subject_menu.pack()
 
-    # Item (Optional)
-    ttk.Label(root, text="Item (Optional):", background="#f0f0f0").pack(pady=5)
-    item_entry = ttk.Entry(root)
-    item_entry.pack()
+    # topic (Optional)
+    ttk.Label(root, text="Topic (Optional):", background="#f0f0f0").pack(pady=5)
+    topic_entry = ttk.Entry(root)
+    topic_entry.pack()
 
     # Age Group
     ttk.Label(root, text="Age Group:", background="#f0f0f0").pack(pady=5)
