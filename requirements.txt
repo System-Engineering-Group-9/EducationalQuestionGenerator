@@ -19,3 +19,6 @@ pydantic-settings~=2.7.1
 # Other Dependencies
 numpy~=2.0.2
 llama-cpp-python --index-url https://abetlen.github.io/llama-cpp-python/whl/cu124/  # For CUDA 12.4
+
+# Optional Dependencies
+PyQt5~=5.15.11
