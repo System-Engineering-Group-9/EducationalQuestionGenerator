@@ -1,3 +1,4 @@
+import torch
 from llama_cpp import Llama
 
 from app.ai.enums.subject import Subject
@@ -27,58 +28,51 @@ class QuizQuestion:
 
 
 def get_prompt(number: int, subject: Subject, ageGroup: str, item: str = None) -> str:
-    if item is None:
-        prompt = (f"Generate {number} multiple choice quiz questions with 4 choices based on {subject.value},"
-                  f" suitable for children at {ageGroup} years old "
-                  f"and ensure there is only 1 correct answer, "
-                  f"include correct answer of multiple choice quiz question."
-                  f"Do not include any quotation marks in the output."
-                  f"Output each question in the format: "
-                  f"Question:"
-                  f"ChoiceA:"
-                  f"ChoiceB:"
-                  f"ChoiceC:"
-                  f"ChoiceD:"
-                  f"Answer:"
-                  f"Here is an example of output:"
-                  f"Question:What is the only planet that hosts life that we know of?\n"
-                  f"ChoiceA:Earth\n"
-                  f"ChoiceB:Mars\n"
-                  f"ChoiceC:Jupiter\n"
-                  f"ChoiceD:Venus\n"
-                  f"Answer:A"
-                  )
-    else:
-        prompt = (
-            f"Generate {number} multiple choice quiz questions around {item} with 4 choices based on {subject.value},"
-            f" suitable for children at {ageGroup} years old "
-            f"and ensure there is only 1 correct answer, "
-            f"include correct answer of multiple choice quiz question."
-            f"Do not include any quotation marks in the output."
-            f"Output each question in the format: "
-            f"Question:"
-            f"ChoiceA:"
-            f"ChoiceB:"
-            f"ChoiceC:"
-            f"ChoiceD:"
-            f"Answer:"
-            f"Here is an example of output:"
-            f"Question:What is the only planet that hosts life that we know of?\n"
-            f"ChoiceA:Earth\n"
-            f"ChoiceB:Mars\n"
-            f"ChoiceC:Jupiter\n"
-            f"ChoiceD:Venus\n"
-            f"Answer:A"
-            )
-    return prompt
+    base_prompt = (
+        f"Generate {number} multiple choice quiz questions "
+        f"with 4 choices based on {subject.value}, suitable for children at {ageGroup} years old. "
+        f"Ensure there is only 1 correct answer and include the correct answer. "
+        f"Do not include any quotation marks in the output. "
+        f"Output each question in the following format:\n"
+        f"Question:\n"
+        f"ChoiceA:\n"
+        f"ChoiceB:\n"
+        f"ChoiceC:\n"
+        f"ChoiceD:\n"
+        f"Answer:\n"
+        f"Here is an example of output:\n"
+        f"Question:What is the only planet that hosts life that we know of?\n"
+        f"ChoiceA:Earth\n"
+        f"ChoiceB:Mars\n"
+        f"ChoiceC:Jupiter\n"
+        f"ChoiceD:Venus\n"
+        f"Answer:A"
+    )
+
+    if item:
+        base_prompt = base_prompt.replace(
+            f"Generate {number} multiple choice quiz questions",
+            f"Generate {number} multiple choice quiz questions around {item}"
+        )
+
+    return base_prompt
 
 
 class QuestionGenerator:
     def __init__(self):
-        self.llm = Llama.from_pretrained(
-            repo_id="QuantFactory/granite-3.0-8b-instruct-GGUF",
-            filename="granite-3.0-8b-instruct.Q4_K_S.gguf",
-        )
+        if torch.cuda.is_available():
+            # Use GPU
+            self.llm = Llama.from_pretrained(
+                repo_id="QuantFactory/granite-3.0-8b-instruct-GGUF",
+                filename="granite-3.0-8b-instruct.Q4_K_S.gguf",
+                n_gpu_layers=-1,  # Use all layers on GPU
+            )
+        else:
+            # Use CPU
+            self.llm = Llama.from_pretrained(
+                repo_id="QuantFactory/granite-3.0-8b-instruct-GGUF",
+                filename="granite-3.0-8b-instruct.Q4_K_S.gguf"
+            )
 
     def generateQuestions(self, number: int, subject: Subject, ageGroup: str, item: str = None) -> list:
         prompt = get_prompt(number, subject, ageGroup, item)
