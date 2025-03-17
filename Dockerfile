@@ -1,5 +1,5 @@
-# Use the official Python 3.11 slim version as the base image
-FROM python:3.11-slim
+# Use the official NVIDIA CUDA 12.4 runtime image (Ubuntu 22.04)
+FROM nvidia/cuda:12.4.0-runtime-ubuntu22.04
 
 # Set the working directory
 WORKDIR /app
@@ -14,6 +14,10 @@ RUN apt-get update && apt-get install -y \
     git \
     libgl1 \
     libglib2.0-0 \
+    python3.11 \
+    python3.11-venv \
+    python3.11-dev \
+    python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements.txt first to leverage Docker cache
