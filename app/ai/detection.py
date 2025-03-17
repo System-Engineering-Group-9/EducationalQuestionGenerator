@@ -26,3 +26,6 @@ class Detection:
         detection_results = sorted(detection_results, key=lambda x: x["score"], reverse=True)
         return detection_results
 
+    # Switch to CPU mode
+    def cpu(self):
+        self.model = self.model.cpu()

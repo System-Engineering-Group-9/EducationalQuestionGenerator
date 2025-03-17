@@ -2,6 +2,7 @@ import tempfile
 
 import cv2
 import numpy as np
+import torch
 from fastapi import APIRouter, UploadFile, File, Depends
 from fastapi.responses import JSONResponse, FileResponse
 
@@ -51,6 +52,25 @@ def recognize(file: UploadFile = File(...)):
     detection_model = get_detection()
     return ResultModel(message="success", data=RecognitionsModel(items=detection_model.detect(bgr_image)))
 
+
+# Release the detection model
+@router.post("/release-detection/", response_model=ResultModel)
+def release_detection():
+    global detection
+    if detection is not None:
+        detection.cpu()  # Switch to CPU mode
+        del detection
+        torch.cuda.empty_cache()
+        detection = None
+    return ResultModel(message="success", data=None)
+
+
+# Release the question generator
+@router.post("/release-question-generator/", response_model=ResultModel)
+def release_question_generator():
+    global questionGenerator
+    questionGenerator = None
+    return ResultModel(message="success", data=None)
 
 # Generate questions
 @router.get("/generate/", response_model=ResultModel)
