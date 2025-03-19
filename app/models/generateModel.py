@@ -1,5 +1,5 @@
 # app/models/generateModel.py
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, field_validator
 
 from app.ai.enums.subject import Subject
 
@@ -13,8 +13,8 @@ class GenerateModel(BaseModel):
     ageGroup: str
     item: str = None
 
-    @validator('number')
-    def check_number(cls, value):
+    @field_validator('number')
+    def validate_message(cls, value):
         if not 1 <= value <= 5:
             raise ValueError('number must be between 1 and 5')
         return value
