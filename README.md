@@ -89,6 +89,18 @@ You can also deploy the application using Docker.
 
 This will start the FastAPI server inside a Docker container, and you can access the API at `http://127.0.0.1:8000`.
 
+## Test
+
+Please Test the server before push!!!
+
+Test the server using the command below:
+
+```bash
+coverage run --source=app -m pytest
+coverage report --show-missing
+coverage html --title "${@-coverage}"
+```
+
 ## Troubleshooting
 
 - Ensure CUDA 12.4 is properly installed
