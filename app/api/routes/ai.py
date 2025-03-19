@@ -20,7 +20,7 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 # Lazy load the AI models
 detection = None
 questionGenerator = None
-dreamShaper = DreamShaper()
+dreamShaper = None
 
 
 def get_detection():
@@ -35,6 +35,13 @@ def get_question_generator():
     if questionGenerator is None:
         questionGenerator = QuestionGenerator()
     return questionGenerator
+
+
+def get_dreamShaper():
+    global dreamShaper
+    if dreamShaper is None:
+        dreamShaper = DreamShaper()
+    return dreamShaper
 
 
 # Recognize the image
@@ -87,7 +94,8 @@ def generate(params: GenerateModel = Depends()):
 # Generate image
 @router.get("/generate-background-image/")
 def generate_background_image(params: DreamShaperModel = Depends()):
-    image = dreamShaper.generate_background_image(params.subject, params.ageGroup)
+    dream_shaper = get_dreamShaper()
+    image = dream_shaper.generate_background_image(params.subject, params.ageGroup)
 
     # Save the image to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
@@ -101,7 +109,8 @@ def generate_background_image(params: DreamShaperModel = Depends()):
 
 @router.get("/generate-quiz-background-image/")
 def generate_background_image(params: DreamShaperModel = Depends()):
-    image = dreamShaper.generate_quiz_panel_background_image(params.subject, params.ageGroup)
+    dream_shaper = get_dreamShaper()
+    image = dream_shaper.generate_quiz_panel_background_image(params.subject, params.ageGroup)
 
     # Save the image to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp_file:
