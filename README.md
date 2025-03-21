@@ -89,9 +89,25 @@ You can also deploy the application using Docker.
 
 This will start the FastAPI server inside a Docker container, and you can access the API at `http://127.0.0.1:8000`.
 
+## Front-End Description
+
+The project also includes a front-end interface built with [teacher-ui](https://github.com/jackmok33/teacher-ui). This
+front-end is designed to provide educators with an intuitive and responsive environment to interact with the quiz
+question generator. Key features include:
+
+- **Intuitive Dashboard:** Easily manage and generate educational quiz questions.
+- **Responsive Design:** Optimized for both desktop and mobile devices to support various usage scenarios.
+- **Real-Time Interaction:** Seamless integration with the AI server for live image recognition and question generation,
+  ensuring immediate feedback.
+- **User-Friendly Experience:** Clean interface and straightforward navigation, enabling teachers to customize settings
+  like subject area, target age group, and specific topics without hassle.
+
+For detailed information on front-end customization, deployment, and further enhancements, please refer to
+the [teacher-ui GitHub repository](https://github.com/jackmok33/teacher-ui).
+
 ## Test
 
-Please Test the server before push!!!
+Please test the server before pushing your changes!!!
 
 Test the server using the command below:
 
