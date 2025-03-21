@@ -84,7 +84,7 @@ You can also deploy the application using Docker.
 
 2. **Run the Docker container**
    ```bash
-   docker run -p 8000:8000 educational-quiz-generator
+   docker run --gpus all -p 8000:8000 educational-quiz-generator
    ```
 
 This will start the FastAPI server inside a Docker container, and you can access the API at `http://127.0.0.1:8000`.

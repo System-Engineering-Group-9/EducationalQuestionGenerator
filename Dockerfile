@@ -32,6 +32,10 @@ COPY . .
 # Create a directory for static files
 RUN mkdir -p /static
 
+# Download the pre-trained model
+RUN python3 -c "from llama_cpp import Llama; Llama.from_pretrained(repo_id='QuantFactory/granite-3.0-8b-instruct-GGUF', filename='granite-3.0-8b-instruct.Q4_K_S.gguf')"
+RUN python3 -c "import torch; from diffusers import AutoPipelineForText2Image; AutoPipelineForText2Image.from_pretrained('lykon/dreamshaper-8', torch_dtype=torch.float16, variant='fp16')"
+
 # Expose port 8000
 EXPOSE 8000
 
