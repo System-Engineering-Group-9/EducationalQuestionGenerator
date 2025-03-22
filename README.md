@@ -30,12 +30,12 @@ consists of two main components:
 
 3. **Configure llama-cpp-python with CUDA**
    ```bash
-   CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
+   CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python
    ```
 
    For MacOS users (Metal support):
    ```bash
-   CMAKE_ARGS="-DLLAMA_METAL=on" pip install llama-cpp-python
+   CMAKE_ARGS="-DGGML_METAL=on" pip install llama-cpp-python
    ```
 
 ## Usage
