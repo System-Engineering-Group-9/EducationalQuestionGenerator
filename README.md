@@ -2,53 +2,76 @@
 
 ## Description
 
-This is an educational quiz question generator used for project IBM – Mixed Reality Board and Toy Games with Granite 3 SLMs.
+This is an educational quiz question generator developed for the IBM – Mixed Reality Board and Toy Games with Granite 3 SLMs project.
 
-The Generator utilizes quantized IBM granite-3.0-8b-instruct for question generation and YOLO for object detection. It
-consists of two main components:
+The Generator utilizes:
 
-- A GUI application for generating questions
-- An AI server for handling API requests
+- **Quantized IBM granite-3.0-8b-instruct** for question generation
+- **YOLO** for object detection
+
+It consists of two main components:
+
+- A **GUI desktop application** for generating questions
+- A **FastAPI server backend** for handling API requests and AI model processing
+
+---
 
 ## Prerequisites
 
-- CUDA Support (required)
+- Nvidia GPU with CUDA support (required)
 - Python 3.8 or later
 - pip package manager
+- [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) properly installed
+- Compatible NVIDIA drivers installed and updated
+
+---
 
 ## Installation
 
 1. **Clone the project**
    ```bash
    git clone https://github.com/dcloud347/EducationalQuestionGenerator.git
+   cd EducationalQuestionGenerator
    ```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. **Install PyTorch (CUDA version)**
+   
+   Install the appropriate `torch` and `torchvision` versions matching your CUDA version:
+   
+   [Find your installation command here](https://pytorch.org/)
 
-3. **Configure llama-cpp-python with CUDA**
+3. **Install llama-cpp-python with CUDA or Metal support**
+
+   For **CUDA (Linux/Windows)**:
    ```bash
    CMAKE_ARGS="-DGGML_CUDA=on" pip install llama-cpp-python
    ```
 
-   For MacOS users (Metal support):
+   For **MacOS (Metal support)**:
    ```bash
    CMAKE_ARGS="-DGGML_METAL=on" pip install llama-cpp-python
    ```
+
+4. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+
+
+---
 
 ## Usage
 
 ### GUI Application
 
-Run the desktop application for generating questions:
+Run the desktop GUI application:
 
 ```bash
 python ./main.py
 ```
 
-The GUI allows you to:
+Features:
 
 - Select number of questions (1-5)
 - Choose subject area
@@ -56,26 +79,32 @@ The GUI allows you to:
 - Set target age group
 - Generate and save questions to `output.json`
 
-### AI Server
+---
 
-Start the FastAPI server for API access:
+### FastAPI AI Server Backend
+
+The FastAPI server handles:
+
+- **AI Model Integration**: For question generation and image recognition
+- **Data processing and storage**
+
+#### Start the server:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The server provides:
+Access API documentation:
 
-- Image recognition endpoint (`/ai/recognize/`)
-- Question generation endpoint (`/ai/generate/`)
+```
+http://127.0.0.1:8000/docs
+```
 
-For detailed API documentation, visit `http://127.0.0.1:8000/docs`
-
-For more information about the AI server, see [AI Server Documentation](app/README.md)
+---
 
 ## Docker Deployment
 
-You can also deploy the application using Docker.
+Deploying via Docker is also supported:
 
 1. **Build the Docker image**
    ```bash
@@ -87,29 +116,30 @@ You can also deploy the application using Docker.
    docker run --gpus all -p 8000:8000 educational-quiz-generator
    ```
 
-This will start the FastAPI server inside a Docker container, and you can access the API at `http://127.0.0.1:8000`.
+Access the API at `http://127.0.0.1:8000`.
+
+---
 
 ## Front-End Description
 
-The project also includes a front-end interface built with [teacher-ui](https://github.com/jackmok33/teacher-ui). This
-front-end is designed to provide educators with an intuitive and responsive environment to interact with the quiz
-question generator. Key features include:
+The project includes a front-end UI built with [teacher-ui](https://github.com/jackmok33/teacher-ui), providing educators an intuitive interface to interact with the quiz generator.
 
-- **Intuitive Dashboard:** Easily manage and generate educational quiz questions.
-- **Responsive Design:** Optimized for both desktop and mobile devices to support various usage scenarios.
-- **Real-Time Interaction:** Seamless integration with the AI server for live image recognition and question generation,
-  ensuring immediate feedback.
-- **User-Friendly Experience:** Clean interface and straightforward navigation, enabling teachers to customize settings
-  like subject area, target age group, and specific topics without hassle.
+**Features:**
 
-For detailed information on front-end customization, deployment, and further enhancements, please refer to
-the [teacher-ui GitHub repository](https://github.com/jackmok33/teacher-ui).
+- **Intuitive Dashboard**: Easily generate and manage quiz questions
+- **Responsive Design**: Optimized for desktop and mobile
+- **Real-Time Interaction**: Connects seamlessly with the FastAPI server for live feedback
+- **Customizable Settings**: Choose subject area, age group, and topics with ease
 
-## Test
+For customization and deployment details, visit the [teacher-ui GitHub repository](https://github.com/jackmok33/teacher-ui).
 
-Please test the server before pushing your changes!!!
+---
 
-Test the server using the command below:
+## Testing
+
+**Always test before pushing!**
+
+Run tests:
 
 ```bash
 coverage run --source=app -m pytest
@@ -117,11 +147,27 @@ coverage report --show-missing
 coverage html --title "${@-coverage}"
 ```
 
+---
+
 ## Troubleshooting
 
-- Ensure CUDA Support is properly installed
-- Check NVIDIA drivers are up to date
-- For MacOS users, verify Metal support requirements
+- Ensure **CUDA Toolkit** and compatible NVIDIA drivers are correctly installed
+- Verify PyTorch version matches your CUDA version
+- Confirm `llama-cpp-python` is installed with `GGML_CUDA=on` (or `GGML_METAL=on` for MacOS)
+- For MacOS, ensure Metal support is available and configured
+- GPU not recognized?
+  - Check NVIDIA driver installation
+  - Check CUDA version compatibility
+  - Ensure environment variables like `GGML_CUDA=on` are set **before** installation
+
+---
+
+## Repository Links
+
+- **Main Repository**: [Educational Question Generator](https://github.com/System-Engineering-Group-9/EducationalQuestionGenerator)
+- **Front-End UI**: [teacher-ui](https://github.com/jackmok33/teacher-ui)
+
+---
 
 ## Author
 
