@@ -12,7 +12,7 @@ consists of two main components:
 
 ## Prerequisites
 
-- CUDA 12.4 or later (required)
+- CUDA Support (required)
 - Python 3.8 or later
 - pip package manager
 
