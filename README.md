@@ -119,7 +119,7 @@ coverage html --title "${@-coverage}"
 
 ## Troubleshooting
 
-- Ensure CUDA 12.4 is properly installed
+- Ensure CUDA Support is properly installed
 - Check NVIDIA drivers are up to date
 - For MacOS users, verify Metal support requirements
 
