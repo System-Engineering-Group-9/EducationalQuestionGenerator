@@ -11,6 +11,7 @@ class ConfigModel(BaseModel):
     teamMode: TeamMode
     numberOfPlayers: int
     quizMode: QuizMode
+    boardNumber: int
 
     @field_validator('numberOfPlayers')
     def check_number_of_players(cls, value):
